@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>LeafyTrip | Smart Travel Planner</title>
+    <!-- Bootstrap 5 + Icons + Google Fonts (clean & minimal) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div class="container py-4 py-md-5">
+        <!-- Header Section with logo-ish style -->
+        <div class="row align-items-center mb-4 mb-md-5">
+            <div class="col-12 col-md-8">
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                    <i class="bi bi-tree-fill fs-1" style="color: #8dd35f;"></i>
+                    <div>
+                        <h1 class="display-6 fw-semibold mb-0" style="color: #2a4318;">LeafyTrip <span
+                                style="font-weight: 400;">Planner</span></h1>
+                        <p class="text-muted mt-1">custom adventures, smart budget, green memories</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <i class="bi bi-calendar-check fs-4 me-1" style="color:#8dd35f;"></i>
+                <span class="fw-light">plan · explore · enjoy</span>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- LEFT COLUMN: selections panel -->
+            <div class="col-lg-7">
+                <!-- Destination multi-select card -->
+                <div class="card p-3 p-md-4 mb-4">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bi bi-geo-alt-fill fs-4" style="color:#8dd35f;"></i>
+                        <h3 class="h5 fw-semibold m-0">Where to go?</h3>
+                        <span class="badge bg-light text-dark ms-2">multiple destinations</span>
+                    </div>
+                    <div class="row g-2">
+                        <!-- list of cities with add buttons -->
+                        <div class="col-md-6">
+                            <div class="dest-card-img d-flex justify-content-between align-items-center p-2 ps-3">
+                                <span><i class="bi bi-brightness-alt-high me-2"></i>Bali, Indonesia</span>
+                                <button class="btn btn-sm btn-primary-custom add-dest-btn" data-dest="Bali, Indonesia">+
+                                    Add</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dest-card-img d-flex justify-content-between align-items-center p-2 ps-3">
+                                <span><i class="bi bi-snow2 me-2"></i>Swiss Alps</span>
+                                <button class="btn btn-sm btn-primary-custom add-dest-btn" data-dest="Swiss Alps">+
+                                    Add</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dest-card-img d-flex justify-content-between align-items-center p-2 ps-3">
+                                <span><i class="bi bi-tropical-storm me-2"></i>Maldives</span>
+                                <button class="btn btn-sm btn-primary-custom add-dest-btn" data-dest="Maldives">+
+                                    Add</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dest-card-img d-flex justify-content-between align-items-center p-2 ps-3">
+                                <span><i class="bi bi-buildings me-2"></i>Tokyo, Japan</span>
+                                <button class="btn btn-sm btn-primary-custom add-dest-btn" data-dest="Tokyo, Japan">+
+                                    Add</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dest-card-img d-flex justify-content-between align-items-center p-2 ps-3">
+                                <span><i class="bi bi-cup-straw me-2"></i>Rome, Italy</span>
+                                <button class="btn btn-sm btn-primary-custom add-dest-btn" data-dest="Rome, Italy">+
+                                    Add</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dest-card-img d-flex justify-content-between align-items-center p-2 ps-3">
+                                <span><i class="bi bi-umbrella me-2"></i>Costa Rica</span>
+                                <button class="btn btn-sm btn-primary-custom add-dest-btn" data-dest="Costa Rica">+
+                                    Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selected destinations chips -->
+                    <div class="mt-4">
+                        <label class="fw-semibold small text-secondary mb-2"><i class="bi bi-check2-circle"></i> Your
+                            chosen places</label>
+                        <div id="selectedDestinationsContainer"
+                            class="selected-dest-wrapper d-flex flex-wrap gap-2 align-items-center">
+                            <span class="text-muted fst-italic small">No destination added yet. Click + Add</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Selection & validation -->
+                <div class="card p-3 p-md-4 mb-4">
+                    <div class="d-flex gap-2 align-items-center mb-3">
+                        <i class="bi bi-calendar-week fs-4" style="color:#8dd35f;"></i>
+                        <h3 class="h5 fw-semibold m-0">Trip duration</h3>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-semibold">Start date</label>
+                            <input type="date" id="startDate" class="form-control rounded-3">
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-semibold">End date</label>
+                            <input type="date" id="endDate" class="form-control rounded-3">
+                        </div>
+                    </div>
+                    <div id="dateValidationMsg" class="small text-danger mt-2"></div>
+                </div>
+
+                <!-- Activity selection (add/remove) -->
+                <div class="card p-3 p-md-4">
+                    <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+                        <i class="bi bi-hiking fs-4" style="color:#8dd35f;"></i>
+                        <h3 class="h5 fw-semibold m-0">Pick your activities</h3>
+                        <span class="badge bg-light text-dark ms-1">add / remove anytime</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="fw-medium mb-2"><i class="bi bi-stars me-1"></i> Available activities</div>
+                            <div id="availableActivitiesList"
+                                class="activity-list-group list-group list-group-flush bg-transparent">
+                                <!-- dynamic from js but populate via js -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3 mt-md-0">
+                            <div class="fw-medium mb-2"><i class="bi bi-card-checklist me-1"></i> Your itinerary</div>
+                            <div id="selectedActivitiesList" class="bg-light p-3 rounded-4" style="min-height: 180px;">
+                                <span class="text-muted small">No activities selected.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Budget + realtime summary -->
+            <div class="col-lg-5">
+                <div class="card budget-card p-3 p-md-4 mb-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-calculator-fill fs-3" style="color:#8dd35f;"></i>
+                        <h3 class="h5 fw-semibold m-0">Budget estimator</h3>
+                    </div>
+                    <hr class="my-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span><i class="bi bi-pin-map-fill me-1"></i> Destinations (x per place)</span>
+                        <span id="destCostDisplay" class="fw-semibold">$0</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span><i class="bi bi-activity me-1"></i> Activities total</span>
+                        <span id="activitiesCostDisplay" class="fw-semibold">$0</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span><i class="bi bi-calendar-range"></i> Daily base (trip days)</span>
+                        <span id="daysCostDisplay" class="fw-semibold">$0</span>
+                    </div>
+                    <div class="border-top pt-2 mt-2">
+                        <div class="d-flex justify-content-between align-items-center fs-5">
+                            <strong class="fw-bold">Estimated total</strong>
+                            <strong id="totalBudgetAmount" style="color:#2e6110; font-size: 1.6rem;">$0</strong>
+                        </div>
+                        <p class="small text-secondary mt-2 mb-0"><i class="bi bi-info-circle"></i> Budget = $120 per
+                            destination + $35 per activity + $80/day base lodging & meals</p>
+                    </div>
+                </div>
+
+                <!-- Summary card with real-time stats -->
+                <div class="card p-3 p-md-4">
+                    <div class="d-flex gap-2 align-items-center mb-3">
+                        <i class="bi bi-journal-bookmark-fill" style="color:#8dd35f;"></i>
+                        <h4 class="h6 fw-semibold m-0">Trip snapshot</h4>
+                    </div>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2 text-success"></i> <strong>Destinations:</strong>
+                            <span id="destCountSummary">0</span></li>
+                        <li class="mb-2"><i class="bi bi-calendar-check me-2 text-success"></i> <strong>Total
+                                days:</strong> <span id="totalDaysSummary">0</span> day(s)</li>
+                        <li class="mb-2"><i class="bi bi-check2-square me-2 text-success"></i> <strong>Activities
+                                chosen:</strong> <span id="activityCountSummary">0</span></li>
+                    </ul>
+                    <div class="alert alert-light border-start border-3 border-success mt-2 py-2 px-3" role="alert">
+                        <i class="bi bi-tree"></i> Real‑time updates — change any selection!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ------------------ DATA MODELS ------------------
+        // Available activities with base cost per activity
+        const activitiesCatalog = [
+            { id: "act1", name: "Surfing lesson", cost: 55 },
+            { id: "act2", name: "Street food tour", cost: 40 },
+            { id: "act3", name: "Mountain hiking", cost: 30 },
+            { id: "act4", name: "Kayaking", cost: 50 },
+            { id: "act5", name: "Museum pass", cost: 25 },
+            { id: "act6", name: "Yoga retreat (day)", cost: 45 },
+            { id: "act7", name: "Scuba diving", cost: 85 },
+            { id: "act8", name: "City bike tour", cost: 35 }
+        ];
+
+        // State management
+        let selectedDestinations = [];   // array of destination strings
+        let selectedActivities = [];     // array of activity objects {id, name, cost}
+        let startDateInput = document.getElementById("startDate");
+        let endDateInput = document.getElementById("endDate");
+
+        // Helper: destination cost per place = 120$
+        const DEST_COST_PER = 120;
+        const DAILY_BASE_COST = 80;      // per day accommodation/food local travel
+
+        // ---------- DOM Elements ----------
+        const destContainer = document.getElementById("selectedDestinationsContainer");
+        const availableActivitiesDiv = document.getElementById("availableActivitiesList");
+        const selectedActivitiesContainer = document.getElementById("selectedActivitiesList");
+        const destCostDisplay = document.getElementById("destCostDisplay");
+        const activitiesCostDisplay = document.getElementById("activitiesCostDisplay");
+        const daysCostDisplay = document.getElementById("daysCostDisplay");
+        const totalBudgetSpan = document.getElementById("totalBudgetAmount");
+        const destCountSummary = document.getElementById("destCountSummary");
+        const totalDaysSummary = document.getElementById("totalDaysSummary");
+        const activityCountSummary = document.getElementById("activityCountSummary");
+        const dateValidationMsg = document.getElementById("dateValidationMsg");
+
+        // ---------- helper: get number of valid trip days ----------
+        function getTripDays() {
+            const start = startDateInput.value;
+            const end = endDateInput.value;
+            if (!start || !end) return 0;
+            const startDateObj = new Date(start);
+            const endDateObj = new Date(end);
+            if (isNaN(startDateObj) || isNaN(endDateObj)) return 0;
+            if (endDateObj <= startDateObj) return 0;
+            const diffTime = Math.abs(endDateObj - startDateObj);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays > 0 ? diffDays : 0;
+        }
+
+        // ---------- render selected destinations (chips with remove) ----------
+        function renderDestinations() {
+            if (!destContainer) return;
+            if (selectedDestinations.length === 0) {
+                destContainer.innerHTML = `<span class="text-muted fst-italic small">No destination added yet. Click + Add</span>`;
+                return;
+            }
+            const chipsHtml = selectedDestinations.map((dest, idx) => `
+      <div class="badge-dest">
+        <i class="bi bi-geo-fill"></i> ${dest}
+        <i class="bi bi-x-circle-fill remove-icon ms-1" data-dest="${dest.replace(/"/g, '&quot;')}" data-index="${idx}"></i>
+      </div>
+    `).join('');
+            destContainer.innerHTML = chipsHtml;
+            // attach remove event listeners
+            document.querySelectorAll('.remove-icon').forEach(icon => {
+                icon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const destName = icon.getAttribute('data-dest');
+                    if (destName) {
+                        selectedDestinations = selectedDestinations.filter(d => d !== destName);
+                        renderDestinations();
+                        updateBudgetAndSummary();
+                    }
+                });
+            });
+        }
+
+        // ---------- render available activities (with add btn) ----------
+        function renderAvailableActivities() {
+            if (!availableActivitiesDiv) return;
+            // filter out already selected activities (by id)
+            const selectedIds = selectedActivities.map(act => act.id);
+            const filteredAvailable = activitiesCatalog.filter(act => !selectedIds.includes(act.id));
+            if (filteredAvailable.length === 0) {
+                availableActivitiesDiv.innerHTML = `<div class="list-group-item bg-transparent text-muted"><i class="bi bi-check2-circle me-1"></i> All activities added to itinerary!</div>`;
+                return;
+            }
+            const listHtml = filteredAvailable.map(act => `
+      <div class="list-group-item d-flex justify-content-between align-items-center bg-transparent border-0 px-0 py-2">
+        <span>${act.name} <span class="text-muted small">(+$${act.cost})</span></span>
+        <button class="btn btn-sm btn-outline-custom add-activity-btn" data-id="${act.id}" data-name="${act.name}" data-cost="${act.cost}">
+          <i class="bi bi-plus-circle"></i> Add
+        </button>
+      </div>
+    `).join('');
+            availableActivitiesDiv.innerHTML = listHtml;
+            // Attach event listeners to add buttons
+            document.querySelectorAll('.add-activity-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = btn.getAttribute('data-id');
+                    const name = btn.getAttribute('data-name');
+                    const cost = parseInt(btn.getAttribute('data-cost'), 10);
+                    if (id && name && !selectedActivities.some(a => a.id === id)) {
+                        selectedActivities.push({ id, name, cost });
+                        renderSelectedActivities();
+                        renderAvailableActivities();   // refresh available list
+                        updateBudgetAndSummary();
+                    }
+                });
+            });
+        }
+
+        // render selected activities with remove option
+        function renderSelectedActivities() {
+            if (!selectedActivitiesContainer) return;
+            if (selectedActivities.length === 0) {
+                selectedActivitiesContainer.innerHTML = `<span class="text-muted small">No activities selected. Add some fun!</span>`;
+                return;
+            }
+            const listHtml = selectedActivities.map((act, idx) => `
+      <div class="d-flex justify-content-between align-items-center activity-badge mb-2 me-2 d-inline-flex" style="background:#EFF7E6;">
+        <span>${act.name} <span class="fw-semibold">$${act.cost}</span></span>
+        <i class="bi bi-trash3-fill ms-2 text-danger remove-act" style="cursor:pointer; font-size:0.8rem;" data-id="${act.id}"></i>
+      </div>
+    `).join('');
+            selectedActivitiesContainer.innerHTML = `<div class="d-flex flex-wrap gap-2">${listHtml}</div>`;
+            // attach remove activity listeners
+            document.querySelectorAll('.remove-act').forEach(icon => {
+                icon.addEventListener('click', (e) => {
+                    const actId = icon.getAttribute('data-id');
+                    if (actId) {
+                        selectedActivities = selectedActivities.filter(act => act.id !== actId);
+                        renderSelectedActivities();
+                        renderAvailableActivities();   // bring back available
+                        updateBudgetAndSummary();
+                    }
+                });
+            });
+        }
+
+        // ---------- Date validation & realtime update ----------
+        function validateAndUpdateDates() {
+            const start = startDateInput.value;
+            const end = endDateInput.value;
+            let errorMsg = "";
+            let valid = true;
+            if (start && end) {
+                const startObj = new Date(start);
+                const endObj = new Date(end);
+                if (endObj <= startObj) {
+                    errorMsg = "End date must be after start date.";
+                    valid = false;
+                } else if (startObj < new Date(new Date().setHours(0, 0, 0, 0))) {
+                    errorMsg = "Start date can't be in the past (please select future date).";
+                    valid = false;
+                } else {
+                    const diffDays = getTripDays();
+                    if (diffDays > 30) errorMsg = "Trip longer than 30 days, budget still works!";
+                    else if (diffDays === 0 && start && end) errorMsg = "Invalid date range";
+                    else errorMsg = "";
+                }
+            } else if (start && !end) {
+                errorMsg = "Please select end date.";
+            } else if (!start && end) {
+                errorMsg = "Please select start date.";
+            }
+            dateValidationMsg.innerText = errorMsg;
+            if (!valid && start && end && new Date(end) <= new Date(start)) {
+                // still force budget update? but we return days=0 in budget calc
+            }
+            updateBudgetAndSummary();
+        }
+
+        // ---------- Budget Calculation & realtime updates ----------
+        function computeBudget() {
+            // destinations cost
+            const destCost = selectedDestinations.length * DEST_COST_PER;
+            // activities total
+            const actCost = selectedActivities.reduce((sum, act) => sum + act.cost, 0);
+            // days cost
+            let days = getTripDays();
+            if (days <= 0) days = 0;
+            const dailyTotal = days * DAILY_BASE_COST;
+            const total = destCost + actCost + dailyTotal;
+            return { destCost, actCost, dailyTotal, total, days, destCount: selectedDestinations.length, actCount: selectedActivities.length };
+        }
+
+        function updateBudgetAndSummary() {
+            const { destCost, actCost, dailyTotal, total, days, destCount, actCount } = computeBudget();
+            destCostDisplay.innerText = `$${destCost}`;
+            activitiesCostDisplay.innerText = `$${actCost}`;
+            daysCostDisplay.innerText = `$${dailyTotal}`;
+            totalBudgetSpan.innerText = `$${total}`;
+            destCountSummary.innerText = destCount;
+            totalDaysSummary.innerText = days;
+            activityCountSummary.innerText = actCount;
+        }
+
+        // ---------- Add destination listeners (static buttons) ----------
+        function bindAddDestinationButtons() {
+            const addBtns = document.querySelectorAll('.add-dest-btn');
+            addBtns.forEach(btn => {
+                // remove any previous listener to avoid duplication (but we can just attach new)
+                btn.removeEventListener('click', addDestHandler);
+                btn.addEventListener('click', addDestHandler);
+            });
+        }
+
+        function addDestHandler(e) {
+            const dest = e.currentTarget.getAttribute('data-dest');
+            if (dest && !selectedDestinations.includes(dest)) {
+                selectedDestinations.push(dest);
+                renderDestinations();
+                updateBudgetAndSummary();
+            } else if (dest && selectedDestinations.includes(dest)) {
+                const tempMsg = document.getElementById("dateValidationMsg");
+                if (tempMsg) {
+                    tempMsg.innerText = `${dest} is already in your list.`;
+                    setTimeout(() => { if (dateValidationMsg.innerText === `${dest} is already in your list.`) validateAndUpdateDates(); }, 1500);
+                }
+            }
+        }
+
+        // ----  Initialize & attach date listeners, load initial activity list, etc ----
+        function init() {
+            renderAvailableActivities();
+            renderSelectedActivities();  // empty initially
+            renderDestinations();        // empty initially
+            bindAddDestinationButtons();
+            // set default dates (placeholders) maybe suggest a range
+            const today = new Date();
+            const nextWeek = new Date();
+            nextWeek.setDate(today.getDate() + 5);
+            const yyyymmdd = (date) => date.toISOString().split('T')[0];
+            if (!startDateInput.value) startDateInput.value = yyyymmdd(today);
+            if (!endDateInput.value) endDateInput.value = yyyymmdd(nextWeek);
+            validateAndUpdateDates();
+
+            startDateInput.addEventListener('change', validateAndUpdateDates);
+            endDateInput.addEventListener('change', validateAndUpdateDates);
+            // also if any manual mutation, call updates
+            window.addEventListener('load', () => {
+                updateBudgetAndSummary();
+            });
+        }
+
+        // also watch for dynamic destination updates after renderDestinations rebinds? but remove icons handled inside render.
+        // safe guard: after any renderDestinations, the remove icons are fresh, but still fine.
+        // also needed: whenever we add via dest button, call update budget.
+        // we override addDestHandler already triggers updateBudgetAndSummary.
+        // override the selectedDestinations change by manual remove inside renderDestinations listener calls updateBudgetAndSummary.
+        // also after any activity changes we call updateBudgetAndSummary already.
+        // make sure that date validation also triggers budget updates.
+
+        // start the application
+        init();
+    </script>
+    <script src="assets/js/app.js"></script>
+    <!-- Bootstrap JS bundle for responsiveness (optional but good) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
